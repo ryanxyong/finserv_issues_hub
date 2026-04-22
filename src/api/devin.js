@@ -38,7 +38,7 @@ export async function dispatchToDevin(issue, triageData) {
     throw new Error('Missing VITE_DEVIN_API_KEY or VITE_DEVIN_ORG_ID');
   }
 
-  const url = `https://api.devin.ai/v3/organizations/${orgId}/sessions`;
+  const url = 'https://api.devin.ai/v1/sessions';
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -62,14 +62,11 @@ export async function dispatchToDevin(issue, triageData) {
   }
 
   const data = await res.json().catch(() => ({}));
-  const sessionId =
-    data.session_id ||
-    data.id ||
-    (typeof data.session_url === 'string'
-      ? data.session_url.split('/').pop()
-      : null);
+  const rawId = data.session_id || data.id || '';
+  const sessionId = typeof rawId === 'string' ? rawId.replace(/^devin-/, '') : '';
 
   const session_url =
+    data.url ||
     data.session_url ||
     (sessionId ? `https://app.devin.ai/sessions/${sessionId}` : 'https://app.devin.ai/sessions');
 
