@@ -35,7 +35,7 @@ export default function Header({ phase, issueCount, totalHours }) {
             fontSize: 13,
           }}
         >
-          by Devin
+          by ryan
         </span>
       </div>
 
