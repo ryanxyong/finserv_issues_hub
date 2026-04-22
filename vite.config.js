@@ -6,5 +6,13 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
+    proxy: {
+      '/api/devin': {
+        target: 'https://api.devin.ai',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/api\/devin/, ''),
+      },
+    },
   },
 });

@@ -38,7 +38,7 @@ export async function dispatchToDevin(issue, triageData) {
     throw new Error('Missing VITE_DEVIN_API_KEY or VITE_DEVIN_ORG_ID');
   }
 
-  const url = 'https://api.devin.ai/v1/sessions';
+  const url = '/api/devin/v1/sessions';
   const res = await fetch(url, {
     method: 'POST',
     headers: {
